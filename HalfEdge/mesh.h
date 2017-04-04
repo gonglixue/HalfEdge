@@ -42,4 +42,6 @@ public:
 	list<Face> faces;
 	list<Edge> edges;
 	int n_vertices, n_faces, n_edges;
+
+	void ReadObj(string filename);
 };
