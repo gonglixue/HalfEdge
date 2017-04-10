@@ -34,6 +34,10 @@ void Mesh::ReadObj(string filename)
 				input_file >> a >> b >> c;
 				// ´´½¨3¸öHalfEdge
 				HalfEdge *he1, *he2, *he3;
+				he1 = (HalfEdge*)malloc(sizeof(HalfEdge));
+				he2 = (HalfEdge*)malloc(sizeof(HalfEdge));
+				he3 = (HalfEdge*)malloc(sizeof(HalfEdge));
+
 				he1->vert = &this->vertices[a];
 				he2->vert = &this->vertices[b];
 				he3->vert = &this->vertices[c];

@@ -27,6 +27,15 @@ struct HalfEdge {
 
 struct Edge {
 	HalfEdge *pairHalfEdge[2];
+
+	Edge(HalfEdge* half1) {
+		pairHalfEdge[0] = half1;
+	}
+	Edge(HalfEdge* half1, HalfEdge* half2)
+	{
+		pairHalfEdge[0] = half1;
+		pairHalfEdge[1] = half2;
+	}
 };
 
 struct Vertex {
