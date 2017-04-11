@@ -37,6 +37,26 @@ void Simplification::AssignInitialQ()
 			hep = hep->prev->mate;
 		} while (hep != startHalfEdge && hep != NULL);
 
+		//如果是边界点另外处理（把Error变得很大？）
+		if (vi->isBoundary)
+		{
+			// add pseudo face infomation to vi->Q
+			// vi邻接一个虚拟的面
+			double boundaryVector[3], pseudoNormal[3]; //边界边向量
 
+			for (int i = 0; i < 3; i++)  // 该点关联的第一条边界边
+				boundaryVector[i] = startHalfEdge->next->vertex->coord[i] - startHalfEdge->vertex->coord[i];
+
+			CrossProduct(boundaryVector, startHalfEdge->face->normal, pseudoNormal);
+			Normalize(pseudoNormal);
+			CumulateQ(vi, pseudoNormal, -DotProduct(pseudoNormal, startHalfEdge->vertex->coord));
+
+			for (int i = 0; i < 3; i++)
+				boundaryVector[i] = endHalfEdge->next->vertex->coord[i] - endHalfEdge->vertex->coord[i];
+
+			CrossProduct(boundaryVector, endHalfEdge->face->normal, pseudoNormal);
+			Normalize(pseudoNormal);
+			CumulateQ(vi, pseudoNormal, -DotProduct(pseudoNormal, endHalfEdge->vertex->coord));
+		}
 	}
 }
